@@ -12,7 +12,7 @@ module MaintenanceTaskUi
 
     belongs_to :task
 
-    validates_presence_of :error_class, :stack_trace, if: -> { status == 'errored' }
+    validates_presence_of :error_class, :error_message, :stack_trace, if: -> { status == 'errored' }
 
     def finished?
       status == 'succeeded' || status == 'aborted' || status == 'interrupted' || status == 'errored'
