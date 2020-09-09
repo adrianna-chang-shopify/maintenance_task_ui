@@ -71,6 +71,8 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    job-iteration (1.1.8)
+      activejob (>= 5.2)
     loofah (2.7.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -138,6 +140,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  job-iteration
   maintenance_task_ui!
   sqlite3
 
