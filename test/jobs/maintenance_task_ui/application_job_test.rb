@@ -164,5 +164,21 @@ module MaintenanceTaskUi
 
       assert_equal 'succeeded', new_task_run.reload.status
     end
+
+    test "#serialize turns the job's associated task into a Global ID" do
+      task = Task.create!(job_class: 'SuccessfulJob')
+      job = SuccessfulJob.new(task: task)
+
+      assert_equal task.to_gid, job.serialize["task"]
+    end
+
+    test "#deserialize turns the job's task Global ID into a Task object" do
+      task = Task.create!(job_class: 'SuccessfulJob')
+      job = SuccessfulJob.new(task: task)
+      job_data = job.serialize
+      
+      job.deserialize(job_data)
+      assert_equal task, job.task
+    end
   end
 end
