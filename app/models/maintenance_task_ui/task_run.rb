@@ -17,5 +17,9 @@ module MaintenanceTaskUi
     def finished?
       status == 'succeeded' || status == 'aborted' || status == 'interrupted' || status == 'errored'
     end
+
+    def job_class
+      task.job_class
+    end
   end
 end

@@ -1,0 +1,23 @@
+<h3>Enqueue tasks</h3>
+
+<% @tasks.each do |task| %>
+  <%= button_to("Enqueue #{task}", enqueue_task_path(task)) %>
+<% end %>
+
+<h3>Tasks in the queue</h3>
+
+<% @enqueued_tasks.each do |task| %>
+  <%= task.job_class %> <br />
+<% end %>
+
+<h3>Running tasks</h3>
+
+<% @running_tasks.each do |task_run| %>
+  <%= task_run.job_class %> <br />
+<% end %>
+
+<h3>Finished tasks</h3>
+
+<% @finished_tasks.each do |finished_run| %>
+  <%= link_to("See detail of #{finished_run.job_class}", detail_task_path(finished_run.task)) %> <br />
+<% end %>

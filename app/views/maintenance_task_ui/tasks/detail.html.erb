@@ -1,0 +1,24 @@
+Progression detail of the <b><%= @task.job_class %></b> task: <br />
+
+<table>
+  <tr>
+    <th>Task</th>
+    <th>ID</th>
+    <th>Started At</th>
+    <th>Completed At</th>
+    <th>Status</th>
+    <th>Error Class</th>
+    <th>Stack Trace</th>
+  </tr>
+  <% @task.task_run.each do |task_run| %>
+  <tr>
+    <td><%= task_run.job_class %></td>
+    <td><%= task_run.job_id %></td>
+    <td><%= task_run.started_at %></td>
+    <td><%= task_run.completed_at %></td>
+    <td><%= task_run.status %></td>
+    <td><%= task_run.error_class %></td>
+    <td><%= task_run.stack_trace %></td>
+  </tr>
+  <% end %>
+</table>
