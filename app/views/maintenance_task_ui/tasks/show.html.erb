@@ -1,23 +1,36 @@
 <h3>Enqueue tasks</h3>
 
-<% @tasks.each do |task| %>
+<% @available_tasks.each do |task| %>
   <%= button_to("Enqueue #{task}", enqueue_task_path(task)) %>
 <% end %>
 
 <h3>Tasks in the queue</h3>
 
-<% @enqueued_tasks.each do |task| %>
-  <%= task.job_class %> <br />
+<% @tasks.select(&:enqueued?).each do |task| %>
+  <p><%= task.job_class %> is in the queue.</p>
 <% end %>
 
 <h3>Running tasks</h3>
 
-<% @running_tasks.each do |task_run| %>
-  <%= task_run.job_class %> <br />
+<% @tasks.select(&:running?).each do |task| %>
+  <p><%= task.job_class %> is running.</p>
 <% end %>
 
 <h3>Finished tasks</h3>
 
-<% @finished_tasks.each do |finished_run| %>
-  <%= link_to("See detail of #{finished_run.job_class}", detail_task_path(finished_run.task)) %> <br />
-<% end %>
+<table>
+  <tr>
+    <th>Task</th>
+    <th>ID</th>
+    <th>Detail</th>
+    <th>Status</th>
+  </tr>
+  <% @tasks.select(&:completed?).each do |task| %>
+  <tr>
+    <td><%= task.job_class %></td>
+    <td><%= task.id %></td>
+    <td><%= link_to("Detail", detail_task_path(task)) %></td>
+    <td><%= task.status %></td>
+  <tr/>
+  <% end %>
+</table>

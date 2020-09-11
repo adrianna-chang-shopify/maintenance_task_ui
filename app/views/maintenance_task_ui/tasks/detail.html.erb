@@ -1,4 +1,10 @@
-Progression detail of the <b><%= @task.job_class %></b> task: <br />
+Progression detail of the <b><%= @task.job_class %></b> task: <br /><br />
+
+<% if @task.task_run.count > 1 %>
+The task retried <%= @task.task_run.count %> times. <br />
+
+Detail of each run: <br />
+<% end %>
 
 <table>
   <tr>
@@ -8,6 +14,7 @@ Progression detail of the <b><%= @task.job_class %></b> task: <br />
     <th>Completed At</th>
     <th>Status</th>
     <th>Error Class</th>
+    <th>Error Message</th>
     <th>Stack Trace</th>
   </tr>
   <% @task.task_run.each do |task_run| %>
@@ -18,6 +25,7 @@ Progression detail of the <b><%= @task.job_class %></b> task: <br />
     <td><%= task_run.completed_at %></td>
     <td><%= task_run.status %></td>
     <td><%= task_run.error_class %></td>
+    <td><%= task_run.error_message %></td>
     <td><%= task_run.stack_trace %></td>
   </tr>
   <% end %>

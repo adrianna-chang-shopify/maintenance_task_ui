@@ -1,10 +1,9 @@
 module MaintenanceTaskUi
   class TasksController < ApplicationController
     def show
-      @tasks = Maintenance.constants
-      @enqueued_tasks = TaskRun.where(status: :enqueued)
-      @running_tasks = TaskRun.where(status: :running)
-      @finished_tasks = TaskRun.where(status: :succeeded)
+      @tasks = Task.preload(:task_run).all
+      running_tasks = @tasks.select { |task| task.running? || task.enqueued? }
+      @available_tasks = Maintenance.constants.map(&:to_s) - running_tasks.pluck(:job_class)
     end
 
     def detail
