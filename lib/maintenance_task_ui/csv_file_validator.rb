@@ -103,7 +103,7 @@ module MaintenanceTaskUi
 
     def validate_content
       CSV.read(csv)
-    rescue CSV::MalformedCSVError => e
+    rescue CSV::MalformedCSVError
       raise MalformedCSVError
     end
   end
