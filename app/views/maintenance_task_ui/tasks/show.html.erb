@@ -1,8 +1,16 @@
 <h3>Enqueue tasks</h3>
 
 <% @available_tasks.each do |task| %>
-  <%= button_to("Enqueue #{task}", enqueue_task_path(task)) %>
+  <% if accepts_params?(task) %>
+    <%= form_tag enqueue_task_path(task), multipart: true do |form| %>
+      <%= submit_tag "Enqueue #{task}" %>
+       <%= file_field_tag :csv %>
+    <% end %>
+  <% else %>
+    <%= button_to("Enqueue #{task}", enqueue_task_path(task)) %>
+  <% end %>
 <% end %>
+<br>
 
 <h3>Tasks in the queue</h3>
 
