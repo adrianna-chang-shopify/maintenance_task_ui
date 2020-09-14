@@ -1,5 +1,5 @@
 require "maintenance_task_ui/engine"
 
 module MaintenanceTaskUi
-  # Your code goes here...
+  autoload :CsvFileValidator, "maintenance_task_ui/csv_file_validator"
 end
