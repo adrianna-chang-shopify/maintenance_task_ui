@@ -15,3 +15,4 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 gem 'job-iteration'
+gem 'mocha', require: false
