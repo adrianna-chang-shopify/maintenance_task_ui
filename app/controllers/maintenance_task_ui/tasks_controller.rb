@@ -19,14 +19,16 @@ module MaintenanceTaskUi
         task_const = Maintenance.const_get(params[:task])
 
         job = if accepts_params?(task_const)
-          return render(plain: "CSV with task arguments is required") unless params[:csv].present?
-          
+          unless params[:csv].present?
+            return render(plain: "CSV with task arguments is required", status: :bad_request)
+          end
+
           result = CsvFileValidator.call(params[:csv])
           if result.valid?
             task_const.perform_later(params[:csv], task: task)
           else
             errors = result.errors.map(&:message).join("\n")
-            render(plain: "CSV was invalid. The following errors were detected:\n#{errors}", status: :unprocessable_entity)
+            return render(plain: "CSV was invalid. The following errors were detected:\n#{errors}", status: :unprocessable_entity)
           end  
         else
           task_const.perform_later(task: task)
@@ -38,7 +40,7 @@ module MaintenanceTaskUi
           render(plain: 'Failed to enqueue task')
         end
       else
-        render(plain: 'This task does not exist', status: :unprocessable_entity)
+        render(plain: 'This task does not exist', status: :bad_request)
       end
     end
 

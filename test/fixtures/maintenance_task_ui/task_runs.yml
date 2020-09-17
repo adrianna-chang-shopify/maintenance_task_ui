@@ -8,12 +8,12 @@ one:
   job_id: "123-456"
   started_at: 2020-09-01 17:48:04
   completed_at: 2020-09-01 17:48:04
-  status: 1
+  status: "succeeded"
   task: one
 
 two:
   job_id: "123-456"
   started_at: 2020-09-01 17:48:04
   completed_at: 2020-09-01 17:48:04
-  status: 1
+  status: "succeeded"
   task: two
